@@ -1,7 +1,7 @@
 <template>
   <div>
     <p>This is the injected script. Yeah, it's a vue component.</p>
-    <p>{{ subtext }}
+    <p>{{ subtext }}</p>
   </div>
 </template>
 

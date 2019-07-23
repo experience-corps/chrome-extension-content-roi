@@ -9,7 +9,7 @@ import App from './XrayV'
   document.body.insertBefore(div, document.body.childNodes[0]);
   
   /* eslint-disable no-new */
-  new Vue({
+  const v = new Vue({
     el: '#injected_container',
     render: h => h(App)
   })

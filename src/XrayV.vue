@@ -1,17 +1,17 @@
-<template>
+<template> 
   <div ref="wrap" id="wrap">
-    <div id="mainw">
-      <p>Modal Boilerplate</p>
-      <p>API Token: {{ token }}</p>
-      <p>Asset: {{ assetData }}</p>
-      <button @click="hideme()" class="button--m button--primary">Close</button>
-    </div>
+    <Timelines v-ref="tlines"></Timelines>
+    <button @click="hideme()" class="button--m button--primary">Close</button>
   </div>
 </template>
 
 <script>
 import axios from 'axios';
+import Timelines from './timelines.vue'
 export default {
+  components: {
+    Timelines
+  },
   mounted () {
     this.hideme();
     // scanning and injecting
@@ -59,11 +59,11 @@ function bar_scan(_th) {
   }
 
   // XRay buttons in library asset view
-  if (document.getElementsByClassName('customxraybutton').length == 0) {
+  if (document.getElementsByClassName('customxraybutton').length <= 1) {
     for (let i of document.getElementsByClassName('control__indicator')) {
       let elem = genButton(_th);
       if (i.getAttribute('data-test-label') == 'dam-item-checkbox' && i.className.indexOf('customxraybutton') == -1) {
-          i.parentElement.insertBefore(elem, i);
+        i.parentElement.insertBefore(elem, i);
       }
     }	
   }
@@ -87,7 +87,7 @@ function genButton(_th) {
   elem.style.borderRadius = '2px';
   elem.style.bottom = '6px';
   elem.style.right = '3px';
-  elem.onclick = e => {
+  elem.onclick = (e) => {
       _th.assetData = 'none for now';
       _th.showme();
       e.stopPropagation();
@@ -96,7 +96,7 @@ function genButton(_th) {
 }
 </script>
 
-<style lang="scss" scoped>
+<style scoped>
 #wrap {
   position: fixed;
   width: 100%;
@@ -109,17 +109,17 @@ function genButton(_th) {
 }
 
 #mainw {
-  min-width: 640px;
-  min-height: 640px;
+  max-width: 640px;
   max-height: 640px;
-  color: black;
-  background-color: white;
+  color: #262626;
+  /* background-color: white; */
   border-radius: 2px;
   border-width: 1px;
-  border-style: solid;
+  /* border-style: solid; */
   border-color: #ccc;
   box-sizing: border-box;
   box-shadow: 0 4px 4px 0 rgba(0,0,0,.25);
+  
 }
 
 p {

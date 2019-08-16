@@ -5,6 +5,7 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 const ExtensionReloader = require('webpack-extension-reloader');
 const { VueLoaderPlugin } = require('vue-loader');
 const { version } = require('./package.json');
+const VuetifyLoaderPlugin = require('vuetify-loader/lib/plugin');
 
 const config = {
   mode: process.env.NODE_ENV,
@@ -38,12 +39,19 @@ const config = {
         use: [MiniCssExtractPlugin.loader, 'css-loader'],
       },
       {
-        test: /\.scss$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader'],
-      },
-      {
-        test: /\.sass$/,
-        use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader?indentedSyntax'],
+        test: /\.s(c|a)ss$/,
+        use: [
+          'vue-style-loader',
+          'css-loader',
+          {
+            loader: 'sass-loader',
+            options: {
+              implementation: require('sass'),
+              fiber: require('fibers'),
+              indentedSyntax: true // optional
+            }
+          }
+        ]
       },
       {
         test: /\.(png|jpg|gif|svg|ico)$/,
@@ -67,6 +75,7 @@ const config = {
       global: 'window',
     }),
     new VueLoaderPlugin(),
+    new VuetifyLoaderPlugin(),
     new MiniCssExtractPlugin({
       filename: '[name].css',
     }),
